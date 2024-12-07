@@ -1,5 +1,5 @@
 FROM node:16-alpine
 WORKDIR /app
-COPY server.js /home/ubuntu/CW-2
+COPY server.js /home/ubuntu
 EXPOSE 8080
 CMD ["node", "server.js"]
