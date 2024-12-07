@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Docker Image Build') {
             steps {
-                sh 'docker build -f Dockerfile --tag sug2004/cw2-server:1.0 ,'
+                sh 'docker build -f Dockerfile --tag sug2004/cw2-server:1.0 .'
             }
         }
         stage('Test Docker Image') {
