@@ -12,7 +12,7 @@ pipeline {
         stage('Test Docker Image') {
             steps {
                 sh 'docker image inspect sug2004/cw2-server:1.0'
-                sh 'docker run --name test-container -d -p 8080:8080 sug2004/cw2-server:1.0'
+                sh 'docker run --name cont-container -d -p 8080:8080 sug2004/cw2-server:1.0'
                 sh 'curl http://localhost:8080'  // To test the service is running
                 sh 'docker stop test-container'
                 sh 'docker rm test-container'
