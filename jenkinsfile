@@ -6,13 +6,14 @@ pipeline {
     stages {
         stage('Docker Image Build') {
             steps {
-                sh 'docker build --tag sug2004/cw2-server:1.0 .'
+                sh 'docker build -f CW-2/Dockerfile --tag sug2004/cw2-server:1.0 CW-2'
             }
         }
         stage('Test Docker Image') {
             steps {
                 sh 'docker image inspect sug2004/cw2-server:1.0'
-                sh 'docker run --name test-container -d sug2004/cw2-server:1.0'
+                sh 'docker run --name test-container -d -p 8080:8080 sug2004/cw2-server:1.0'
+                sh 'curl http://localhost:8080'  // To test the service is running
                 sh 'docker stop test-container'
                 sh 'docker rm test-container'
             }
@@ -31,7 +32,6 @@ pipeline {
             steps {
                 sshagent(['my_ssh_key']) {
                     sh '''
-                    
                     ansible-playbook -i deploy.yml \
                         -e image_name=sug2004/cw2-server:1.0 \
                         -e replicas=3
@@ -41,3 +41,4 @@ pipeline {
         }
     }
 }
+
